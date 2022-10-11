@@ -69,7 +69,7 @@ Promise.resolve(true)
     console.log(response); 
     return Promise.resolve(true);
   })
-  .catch((error) => { // 여기서 걸림
+  .catch((error) => { // 여기로 바로 넘어감
     console.log(error.message);
   });
 */
