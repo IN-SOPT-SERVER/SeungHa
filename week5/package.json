@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "nodemon",
     "build": "tsc && node dist",
-    "db:pull": "npx prisma db pull",
-    "db:push": "npx prisma db push",
+    "db:pull": "npx prisma db pull && npx prisma generate",
+    "db:push": "npx prisma db push && npx prisma generate",
     "generate": "npx prisma generate"
   },
   "devDependencies": {

@@ -94,7 +94,10 @@ const signInUser = async (req: Request, res: Response) => {
 
 const getAllUser = async (req:Request, res:Response) => {
   
-  const data = await userService.getAllUser();
+  const { page } = req.query;
+  const { limit } = req.query;
+
+  const data = await userService.getAllUser(Number(page), Number(limit)); // +랑 Number()랑 무슨차이인지?? +로 하면 에러나던데
 
   return res.status(200).json({ status: 200, message: "전체 유저 조회 성공", data})
 
@@ -126,6 +129,20 @@ const deleteUser = async (req:Request, res:Response) => {
 
 };
 
+// GET ~/api/user?keyword = Dan
+const searchUserByName = async (req: Request, res: Response) => {
+  const { keyword } = req.query;
+  const { option } = req.query;
+
+  const data = await userService.searchUserByName(keyword as string, option as string);
+
+  if (!data) {
+    return res.status(sc.NOT_FOUND).send(fail(sc.NOT_FOUND, rm.NOT_FOUND));
+  }
+
+  return res.status(sc.OK).send(success(sc.OK, rm.READ_USER_SUCCESS, data));
+}
+
 
 
 const userController = {
@@ -134,7 +151,8 @@ const userController = {
   getAllUser,
   updateUser,
   deleteUser,
-  signInUser
+  signInUser,
+  searchUserByName,
 };
 
 export default userController;

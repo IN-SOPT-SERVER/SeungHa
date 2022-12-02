@@ -5,6 +5,9 @@ const { body } = require('express-validator');
 
 const router: Router = Router();
 
+router.get("/search", userController.searchUserByName);
+
+
 router.get("/:userId", auth, userController.getUserById);
 
 //* 유저 생성 - POST api/user //
@@ -36,5 +39,6 @@ router.patch("/:userId", userController.updateUser);
 //* 유저 삭제 - DELETE api/user/:userId //
 router.delete("/:userId", userController.deleteUser);
 
+//* 이름으로 유저 검색 - GET api/user/search?keyword={}
 
 export default router;
