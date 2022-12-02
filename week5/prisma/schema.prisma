@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model item {
+  itemId       Int      @id @default(autoincrement())
+  itemName     String   @db.VarChar(20)
+  itemImage    String   @db.VarChar(500)
+  supplierName String   @db.VarChar(20)
+  itemPrice    Int
+  starCount    Int?
+  commentCount Int?
+  benefitInfo  String[] @db.VarChar(20)
+  deliveryInfo String[] @db.VarChar(20)
+  catchphrase  String?  @db.VarChar(30)
+  discountRate Int?
+}
+
+model live {
+  liveId    Int    @id @default(autoincrement())
+  liveName  String @db.VarChar(20)
+  liveImage String @db.VarChar(500)
+}
+
+model User {
+  id       Int    @id(map: "user_pk") @unique(map: "user_id_uindex") @default(autoincrement())
+  userName String @db.VarChar(100)
+  age      Int?
+  email    String @db.VarChar(400)
+  password String @db.VarChar(400)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+}
+
+model image {
+  id    Int     @id @default(autoincrement())
+  image String? @db.VarChar(800)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+}
